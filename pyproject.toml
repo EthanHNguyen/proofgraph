@@ -24,7 +24,15 @@ include = ["proofgraph*"]
 exclude = ["profiles*", "tests*", "examples*"]
 
 [tool.setuptools.package-data]
-proofgraph = ["bundled_profiles/*.yaml"]
+proofgraph = [
+  "bundled_profiles/*.yaml",
+  "bundled_sample/sample-repo/*.md",
+  "bundled_sample/sample-repo/app/*.py",
+  "bundled_sample/sample-repo/docs/*.md",
+  "bundled_sample/sample-repo/infra/*.tf",
+  "bundled_sample/sample-repo/infra/*.yaml",
+  "bundled_sample/sample-repo/infra/*.yml",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

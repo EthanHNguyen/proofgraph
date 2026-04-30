@@ -1,0 +1,9 @@
+security:
+  vulnerability_scan:
+    tool: trivy
+    cadence: pull_request
+  dependabot: enabled
+  artifact_integrity:
+    checksum: sha256
+    signed_image: true
+    provenance: slsa-level-2
