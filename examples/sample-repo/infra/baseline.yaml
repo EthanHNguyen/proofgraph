@@ -1,0 +1,11 @@
+configuration_baseline: hardened-linux-v1
+approved_settings:
+  tls: enforced
+  encryption: kms-managed
+  ssh_root_login: disabled
+  password_policy: enforced
+component_inventory:
+  - component_id: api
+    service_owner: platform-security
+    image_tag: api:v1.2.3
+    environment: production

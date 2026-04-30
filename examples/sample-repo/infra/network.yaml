@@ -1,0 +1,9 @@
+ingress:
+  allowed_ports: [443]
+  cidr: 10.0.0.0/16
+egress:
+  allowed_destinations:
+    - siem.internal.example
+security_group:
+  description: restricts boundary traffic to approved HTTPS paths
+flow_logs: enabled
