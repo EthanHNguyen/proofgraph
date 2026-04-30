@@ -10,6 +10,7 @@ from proofgraph.explain import explain_control
 from proofgraph.inventory import inventory_paths, write_evidence_index_csv
 from proofgraph.map_profile import map_one_control, map_profile
 from proofgraph.profiles import list_profiles, load_profile
+from proofgraph.validate import validate_graph_model
 
 app = typer.Typer(help='ProofGraph: map what your system proves.')
 profiles_app = typer.Typer(help='Profile commands')
@@ -23,7 +24,7 @@ def profiles_list():
 
 
 @profiles_app.command('show')
-def profiles_show(profile: str = 'starter'):
+def profiles_show(profile: str = typer.Argument('starter')):
     loaded = load_profile(profile)
     typer.echo(f"{loaded.id}: {loaded.name}")
     for control in loaded.controls:
@@ -72,14 +73,10 @@ def map_cmd(profile: str = 'starter', repo: Optional[str] = None, evidence: Opti
 @app.command('validate')
 def validate_graph(path: str):
     graph = read_graph_json(Path(path))
-    chunk_ids = {chunk.id for chunk in graph.chunks}
-    control_ids = {control.id for control in graph.controls}
-    for claim in graph.claims:
-        if claim.control_id not in control_ids:
-            raise typer.BadParameter(f"claim references non-selected control: {claim.control_id}")
-        for ref in claim.evidence_refs:
-            if ref not in chunk_ids:
-                raise typer.BadParameter(f"claim {claim.id} references unknown evidence {ref}")
+    try:
+        validate_graph_model(graph)
+    except Exception as exc:
+        raise typer.BadParameter(str(exc)) from exc
     typer.echo(f"OK: {len(graph.controls)} controls, {len(graph.claims)} claims, {len(graph.gaps)} gaps")
 
 

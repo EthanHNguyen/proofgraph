@@ -27,10 +27,20 @@ def inventory_paths(paths: list[str | Path]) -> tuple[list[EvidenceSource], list
         if not root.exists():
             warnings.append(f"missing path: {root}")
             continue
+        resolved_root = root.resolve()
         if root.is_file():
+            if root.is_symlink():
+                warnings.append(f"skipped symlinked file: {root}")
+                continue
             files.append((root.parent, root))
         else:
             for path in sorted(root.rglob('*')):
+                if path.is_symlink():
+                    warnings.append(f"skipped symlink: {path}")
+                    continue
+                if not path.resolve().is_relative_to(resolved_root):
+                    warnings.append(f"skipped path outside root: {path}")
+                    continue
                 if path.is_file() and should_scan(path.relative_to(root)):
                     files.append((root, path))
     chunk_index = 1

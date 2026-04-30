@@ -1,0 +1,69 @@
+id: starter-security-profile
+name: Starter Security Profile
+description: Terminal-first profile for source-backed artifact mapping.
+controls:
+  - id: AC-2
+    title: Account Management
+    objective: Determine whether account lifecycle controls exist and are evidenced.
+    evidence_hints: [account lifecycle, user provisioning, account disablement, access review, stale users, owner]
+    expected_evidence: [source, config, policy, runbook]
+  - id: AU-2
+    title: Event Logging
+    objective: Determine whether auditable events are identified and logged.
+    evidence_hints: [auditable events, event types, logging policy, security events, authentication failures]
+    expected_evidence: [source, config, policy]
+  - id: AU-6
+    title: Audit Review, Analysis, and Reporting
+    objective: Determine whether audit records are reviewed, analyzed, and reported using source-backed evidence.
+    evidence_hints: [audit event generation, privileged action logging, actor action target timestamp fields, log review cadence, audit log retention, SIEM, centralized logging]
+    expected_evidence: [source, config, infrastructure, policy, runbook]
+  - id: AU-12
+    title: Audit Record Generation
+    objective: Determine whether the system generates audit records for defined events.
+    evidence_hints: [audit_event, audit record generation, CloudTrail, audit logger, event fields]
+    expected_evidence: [source, config, infrastructure]
+  - id: CM-2
+    title: Baseline Configuration
+    objective: Determine whether the system has a documented baseline configuration.
+    evidence_hints: [baseline configuration, golden image, approved baseline, standard build, image version]
+    expected_evidence: [config, infrastructure, policy]
+  - id: CM-6
+    title: Configuration Settings
+    objective: Determine whether secure configuration settings are represented in source or infrastructure.
+    evidence_hints: [secure settings, tls, encryption, password policy, ssh root disabled, hardened config]
+    expected_evidence: [config, infrastructure]
+  - id: CM-8
+    title: System Component Inventory
+    objective: Determine whether system components are inventoried and tied to deployed resources.
+    evidence_hints: [component inventory, asset inventory, owner, version, environment, deployed resources]
+    expected_evidence: [config, infrastructure, policy]
+  - id: IA-2
+    title: Identification and Authentication
+    objective: Determine whether users and privileged accounts are uniquely identified and authenticated.
+    evidence_hints: [identity provider, login, session user, principal, mfa, multi factor, privileged authentication]
+    expected_evidence: [source, config, policy]
+  - id: RA-5
+    title: Vulnerability Monitoring and Scanning
+    objective: Determine whether vulnerability scanning or dependency/security monitoring is evidenced.
+    evidence_hints: [vulnerability scan, dependency scan, SAST, container scan, Dependabot, Trivy, Snyk, remediation]
+    expected_evidence: [config, infrastructure, runbook]
+  - id: SC-7
+    title: Boundary Protection
+    objective: Determine whether boundaries, ingress, egress, and traffic restrictions are defined.
+    evidence_hints: [ingress, egress, firewall, security group, network acl, gateway, allowed ports, flow logs]
+    expected_evidence: [config, infrastructure]
+  - id: SC-13
+    title: Cryptographic Protection
+    objective: Determine whether cryptographic mechanisms protect data or communications.
+    evidence_hints: [TLS, encryption, KMS, cipher, certificate, at rest, in transit, HTTPS]
+    expected_evidence: [config, infrastructure, source]
+  - id: SI-4
+    title: System Monitoring
+    objective: Determine whether monitoring detects suspicious or anomalous activity.
+    evidence_hints: [security monitoring, alerts, detection rules, telemetry, incident, on-call, SIEM]
+    expected_evidence: [config, infrastructure, runbook]
+  - id: SI-7
+    title: Software, Firmware, and Information Integrity
+    objective: Determine whether integrity checks, signed artifacts, or tamper detection are evidenced.
+    evidence_hints: [integrity, signature, checksum, signed image, provenance, SLSA, verify artifact]
+    expected_evidence: [source, config, infrastructure]

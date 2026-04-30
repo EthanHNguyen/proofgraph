@@ -23,6 +23,9 @@ proofgraph = "proofgraph.cli:app"
 include = ["proofgraph*"]
 exclude = ["profiles*", "tests*", "examples*"]
 
+[tool.setuptools.package-data]
+proofgraph = ["bundled_profiles/*.yaml"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]

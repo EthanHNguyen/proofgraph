@@ -7,6 +7,7 @@ import urllib.request
 from abc import ABC, abstractmethod
 
 from proofgraph.schemas import AgentClaim, AgentControlResult, AgentGap, Control, ControlStatus, EvidenceChunk
+from proofgraph.redaction import redact_text
 
 SYSTEM_RULES = [
     "Every positive claim must cite one or more chunk IDs.",
@@ -32,7 +33,7 @@ def build_agent_payload(control: Control, candidate_chunks: list[EvidenceChunk])
                 "line_start": chunk.line_start,
                 "line_end": chunk.line_end,
                 "kind": chunk.kind.value,
-                "text": chunk.text,
+                "text": redact_text(chunk.text),
             }
             for chunk in candidate_chunks
         ],
